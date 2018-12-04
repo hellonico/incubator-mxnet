@@ -52,3 +52,13 @@
       (is (<  (Math/abs (- mean mu)) 0.1))
       (is (< (Math/abs (- stddev sigma)) 0.1)))))
 
+(deftest test-random-parameters-specs
+  (is (thrown? Exception (random/uniform 'a 2)))
+  (is (thrown? Exception (random/uniform 1 'b)))
+  ; (is (thrown? Exception (random/uniform 1 2 [0 1] {:ctx "a"})))
+  (random/uniform 1 2 [0 1] {:ctx (context/default-context)})
+  (is (thrown? Exception (random/normal 'a 2)))
+  (is (thrown? Exception (random/normal 1 'b)))
+  ; (is (thrown? Exception (random/normal 1 2 [0 1] {:ctx "a"})))
+  (random/normal 1 2 [0 1] {:ctx (context/default-context)})
+  (is (thrown? Exception (random/seed "a"))))
